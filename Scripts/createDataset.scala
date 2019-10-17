@@ -28,7 +28,7 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
     }
   }
   var cardinality = 0
-  for (cardinality <- List(100, 1000, 10000)) {
+  for (cardinality <- List(10, 100, 1000, 10000)) {
     // take floats and create a list of integers
     val quantum = sc.broadcast((numbers.max - numbers.min) / cardinality)
     val inumbers = numbers.map(a => (a / quantum.value).toInt)
