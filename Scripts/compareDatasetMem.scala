@@ -14,7 +14,7 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
   var cardinality = 0
   for (cardinality <- List(10, 100, 1000, 10000)) {
     
-    val text = sc.textFile(raw"D:\\randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".csv", numberOfPartitions)
+    val text = sc.textFile(raw"hdfs://gkir-1:9000/randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".csv", numberOfPartitions)
     val dataset = importDataset(text, List(0), List(Datatype.INTEGER))
     val datasetSorted = sortDataset(dataset)
     val encoding = null
@@ -26,12 +26,21 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
         compressedDataset.persist
         compressedDataset.count
         val size = Math.round(sc.getRDDStorageInfo(0).memSize / (1024*1024.0) * (sc.getRDDStorageInfo(0).numPartitions / (sc.getRDDStorageInfo(0).numCachedPartitions * 1.0)) * 100) / 100.0
-        list.add("distribution_" + distribution + "_cardinality_" + cardinality + "_encoding_" + encoding + " size: " + size)
+        val percentCached = Math.round((sc.getRDDStorageInfo(0).numCachedPartitions / (sc.getRDDStorageInfo(0).numPartitions * 1.0)) * 100)
+        list.add("distribution_" + distribution + "_cardinality_" + cardinality + "_encoding_" + encoding + " size: " + size + " percent cached: " + percentCached)
         compressedDataset.unpersist(true)
       }
       
     }
-
+    println("distribution_" + distribution + "_cardinality_" + cardinality + "_hybridcolumnar_best")
+    val compressedDataset = compressDataset(datasetSorted)
+    compressedDataset.persist
+    compressedDataset.count
+    val size = Math.round(sc.getRDDStorageInfo(0).memSize / (1024*1024.0) * (sc.getRDDStorageInfo(0).numPartitions / (sc.getRDDStorageInfo(0).numCachedPartitions * 1.0)) * 100) / 100.0
+    val percentCached = Math.round((sc.getRDDStorageInfo(0).numCachedPartitions / (sc.getRDDStorageInfo(0).numPartitions * 1.0)) * 100)
+    list.add("distribution_" + distribution + "_cardinality_" + cardinality + "_hybridcolumnar_best" + " size: " + size + " percent cached: " + percentCached)
+    compressedDataset.unpersist(true)
+    
   }
 }
-sc.parallelize(list).saveAsTextFile(raw"D:\\compareDatasetMem.csv")
+sc.parallelize(list).saveAsTextFile(raw"hdfs://gkir-1:9000/compareDatasetMem.csv")

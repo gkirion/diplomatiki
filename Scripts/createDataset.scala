@@ -1,8 +1,3 @@
-import org.george.hybridcolumnar._, bitpacking._, chunk._, column._, domain._, roaring._, util._
-import scala.collection.JavaConversions._
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.HashMap
 import org.apache.spark.mllib.random.RandomRDDs._
 
 var distribution = ""
@@ -32,6 +27,6 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
     // take floats and create a list of integers
     val quantum = sc.broadcast((numbers.max - numbers.min) / cardinality)
     val inumbers = numbers.map(a => (a / quantum.value).toInt)
-    inumbers.saveAsTextFile("D:\\randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".csv")
+    inumbers.saveAsTextFile("hdfs://gkir-1:9000/randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".csv")
   }
 }
