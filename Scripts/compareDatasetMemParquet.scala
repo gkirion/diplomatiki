@@ -15,7 +15,7 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
   for (cardinality <- List(10, 100, 1000, 10000)) {
 
     println("distribution_" + distribution + "_cardinality_" + cardinality)
-    val parquet = spark.read.parquet(raw"D:\\randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".parquet")
+    val parquet = spark.read.parquet(raw"hdfs://gkir-1:9000/randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".parquet")
     parquet.persist
     parquet.count
     val size = Math.round(sc.getRDDStorageInfo(0).memSize / (1024*1024.0) * (sc.getRDDStorageInfo(0).numPartitions / (sc.getRDDStorageInfo(0).numCachedPartitions * 1.0)) * 100) / 100.0
@@ -23,8 +23,7 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
     list.add("distribution_" + distribution + "_cardinality_" + cardinality + " size: " + size + " percent cached: " + percentCached)
     parquet.unpersist(true)
       
-    }
-
   }
+
 }
-sc.parallelize(list).saveAsTextFile(raw"D:\\compareDatasetMemParquet.csv")
+sc.parallelize(list).saveAsTextFile(raw"hdfs://gkir-1:9000/compareDatasetMemParquet.csv")

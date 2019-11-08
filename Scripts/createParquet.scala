@@ -12,10 +12,10 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
   var cardinality = 0
   for (cardinality <- List(10, 100, 1000, 10000)) {
     
-    val text = sc.textFile(raw"D:\\randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".csv", numberOfPartitions)
+    val text = sc.textFile(raw"hdfs://gkir-1:9000/randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".csv", numberOfPartitions)
     val dataset = importDataset(text, List(0), List(Datatype.INTEGER))
     val datasetSorted = sortDataset(dataset)
-    datasetSorted.map(a => a.get(0).toString.toInt).toDF.write.parquet(raw"D:\\randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".parquet")
+    datasetSorted.map(a => a.get(0).toString.toInt).toDF.write.parquet(raw"hdfs://gkir-1:9000/randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".parquet")
 
   }
   
