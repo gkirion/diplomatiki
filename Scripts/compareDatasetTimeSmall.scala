@@ -6,23 +6,23 @@ import java.util.HashMap
 import org.apache.spark.mllib.random.RandomRDDs._
 
 var distribution = ""
-var numberOfRows = 1000000000; // 1 Billion rows
-var numberOfPartitions = 2560;
+var numberOfRows = 100000000; // 100 Million rows
+var numberOfPartitions = 256;
 
 for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) {
   val list = new ArrayList[String]
   var cardinality = 0
   for (cardinality <- List(10, 100, 1000, 10000)) {
     
-    val text = sc.textFile(raw"hdfs://gkir-1:9000/randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".csv", numberOfPartitions)
+    val text = sc.textFile(raw"hdfs://gkir-1:9000/randomNumbers_size_100M_distribution_" + distribution + "_cardinality_" + cardinality + ".csv", numberOfPartitions)
     val dataset = importDataset(text, List(0), List(Datatype.INTEGER))
     val datasetSorted = sortDataset(dataset)
     val encoding = null
-    for (encoding <-  List(ColumnType.RLE, ColumnType.BIT_PACKING, ColumnType.DELTA, ColumnType.ROARING)) {
+    for (encoding <-  List(ColumnType.PLAIN, ColumnType.RLE, ColumnType.BIT_PACKING, ColumnType.DELTA, ColumnType.BITMAP, ColumnType.ROARING)) {
 
       if (encoding != ColumnType.BITMAP || cardinality <= 1000) {
         println("distribution_" + distribution + "_cardinality_" + cardinality + "_encoding_" + encoding)
-        val compressedDataset = compressDataset(datasetSorted, null, List(encoding)).repartition(256)
+        val compressedDataset = compressDataset(datasetSorted, null, List(encoding))
         compressedDataset.persist
         compressedDataset.count
 
@@ -51,7 +51,7 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
       
     }
     println("distribution_" + distribution + "_cardinality_" + cardinality + "_hybridcolumnar_best")
-    val compressedDataset = compressDataset(datasetSorted).repartition(256)
+    val compressedDataset = compressDataset(datasetSorted)
     compressedDataset.persist
     compressedDataset.count
 
@@ -78,5 +78,5 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
     compressedDataset.unpersist(true)
     
   }
-  sc.parallelize(list).saveAsTextFile(raw"hdfs://gkir-1:9000/compareDatasetTime" + "_distribution_" + distribution + ".csv")
+  sc.parallelize(list).saveAsTextFile(raw"hdfs://gkir-1:9000/compareDatasetTimeSmall" + "_distribution_" + distribution + ".csv")
 }

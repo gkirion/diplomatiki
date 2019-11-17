@@ -6,16 +6,16 @@ import java.util.HashMap
 import org.apache.spark.mllib.random.RandomRDDs._
 
 var distribution = ""
-var numberOfRows = 1000000000; // 1 Billion rows
-var numberOfPartitions = 2560;
+var numberOfRows = 100000000; // 100 Million rows
+var numberOfPartitions = 256;
 val list = new ArrayList[String]
 for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) {
 
   var cardinality = 0
   for (cardinality <- List(10, 100, 1000, 10000)) {
     
-    val text = sc.textFile(raw"hdfs://gkir-1:9000/randomNumbers_size_1B_distribution_" + distribution + "_cardinality_" + cardinality + ".csv", numberOfPartitions)
-    val dataset = text.map(a => a.toInt).repartition(256)
+    val text = sc.textFile(raw"hdfs://gkir-1:9000/randomNumbers_size_100M_distribution_" + distribution + "_cardinality_" + cardinality + ".csv", numberOfPartitions)
+    val dataset = text.map(a => a.toInt)
     dataset.persist
     dataset.count
 
@@ -42,4 +42,4 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
     dataset.unpersist(true)
   }
 }
-sc.parallelize(list).saveAsTextFile(raw"hdfs://gkir-1:9000/compareDatasetTimeText.csv")
+sc.parallelize(list).saveAsTextFile(raw"hdfs://gkir-1:9000/compareDatasetTimeTextSmall.csv")
