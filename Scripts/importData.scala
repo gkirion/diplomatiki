@@ -15,7 +15,7 @@ def importDataset(dataset: org.apache.spark.rdd.RDD[String], fields: List[Int], 
     }
     datasetWithoutHeaders.
         map(a => {
-            val tokens = a.split(","); val row = new RowArray
+            val tokens = a.stripPrefix("(").stripSuffix(")").split(","); val row = new RowArray
             for (field <- fieldsBc.value.zipWithIndex) {
                 row.add(Input.parse(types(field._2), tokens(field._1)))
             } 
