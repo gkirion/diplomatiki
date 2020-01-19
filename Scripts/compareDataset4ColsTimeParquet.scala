@@ -14,11 +14,11 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
     var cardinality = 10
 
     println("distribution_" + distribution + "_cardinality_" + cardinality)
-    val parquet = spark.read.parquet(raw"hdfs://gkir-1:9000/randomNumbers_size_1B_4cols_distribution_" + distribution + "_cardinality_" + cardinality + ".parquet")
+    val parquet = spark.read.parquet(raw"hdfs://gkir-1:9000/randomNumbers_size_1B_4cols_distribution_" + "exponential1" + "_cardinality_" + 10 + ".parquet")
     parquet.persist
     parquet.count
 
-    var x = sc.broadcast((cardinality * 0.1).toInt)
+    var x = sc.broadcast((10 * 0.1).toInt)
     var start = System.currentTimeMillis
     parquet.filter(col("value") < x.value).rdd.map(a => a(0).asInstanceOf[Int]).reduce((a,b) => a + b)
     var end = System.currentTimeMillis

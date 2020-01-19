@@ -22,7 +22,7 @@ for (distribution <- List("uniform", "normal", "exponential1", "exponential2")) 
     var percentCached = Math.round((sc.getRDDStorageInfo(0).numCachedPartitions / (sc.getRDDStorageInfo(0).numPartitions * 1.0)) * 100)
     list.add("distribution_" + distribution + "_cardinality_" + cardinality + " second col size: " + size + " percent cached: " + percentCached)
     
-    var x = sc.broadcast((cardinality * 0.1).toInt)
+    var x = sc.broadcast((10 * 0.1).toInt)
     var start = System.currentTimeMillis
     parquet.filter(col("value") < x.value).rdd.map(a => a(0).asInstanceOf[Int]).reduce((a,b) => a + b)
     var end = System.currentTimeMillis
