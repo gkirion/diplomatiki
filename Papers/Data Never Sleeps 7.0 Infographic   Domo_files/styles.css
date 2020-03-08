@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "domo-com-social";
+  src:url("fonts/domo-com-social.eot");
+  src:url("fonts/domo-com-social.eot?#iefix") format("embedded-opentype"),
+    url("fonts/domo-com-social.woff") format("woff"),
+    url("fonts/domo-com-social.ttf") format("truetype"),
+    url("fonts/domo-com-social.svg#domo-com-social") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "domo-com-social" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "domo-com-social" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-social-icon-facebook-circle:before {
+  content: "\61";
+}
+.icon-social-icon-linkedin-circle:before {
+  content: "\62";
+}
+.icon-social-icon-twitter-circle:before {
+  content: "\63";
+}
+.icon-social-icon-instagram-circle:before {
+  content: "\64";
+}
+.icon-social-icon-youtube-circle:before {
+  content: "\65";
+}
+.icon-social-icon-google-circle:before {
+  content: "\66";
+}
+.icon-social-icon-facebook:before {
+  content: "\68";
+}
+.icon-social-icon-google:before {
+  content: "\69";
+}
+.icon-social-icon-linkedin:before {
+  content: "\6a";
+}
+.icon-social-icon-instagram:before {
+  content: "\6b";
+}
+.icon-social-icon-twitter:before {
+  content: "\6d";
+}
+.icon-social-icon-youtube:before {
+  content: "\6e";
+}

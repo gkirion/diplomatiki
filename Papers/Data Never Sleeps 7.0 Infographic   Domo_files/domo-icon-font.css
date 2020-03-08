@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'domo-icon-font';
+  src: url('fonts/domo-icon-font.eot?65892197');
+  src: url('fonts/domo-icon-font.eot?65892197#iefix') format('embedded-opentype'),
+       url('fonts/domo-icon-font.woff2?65892197') format('woff2'),
+       url('fonts/domo-icon-font.woff?65892197') format('woff'),
+       url('fonts/domo-icon-font.ttf?65892197') format('truetype'),
+       url('fonts/domo-icon-font.svg?65892197#domo-icon-font') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'domo-icon-font';
+    src: url('../font/domo-icon-font.svg?65892197#domo-icon-font') format('svg');
+  }
+}
+*/
+
+ [class^="domo-icon-"]:before, [class*=" domo-icon-"]:before {
+  font-family: "domo-icon-font";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.domo-icon-play:before { content: '\e800'; } /* '' */
+.domo-icon-analytics-graph-line-statistics-brand-gradient:before { content: '\e802'; } /* '' */
+.domo-icon-arrow-next-right:before { content: '\e803'; } /* '' */
+.domo-icon-chat-message-comment-bubble-1:before { content: '\e805'; } /* '' */
+.domo-icon-chat-message-comment-bubble-reply-quote:before { content: '\e806'; } /* '' */
+.domo-icon-chat-message-quote-reply:before { content: '\e808'; } /* '' */
+.domo-icon-computer-screen:before { content: '\e809'; } /* '' */
+.domo-icon-delete-exit-remove-close:before { content: '\e80a'; } /* '' */
+.domo-icon-document-file-paper-text:before { content: '\e80b'; } /* '' */
+.domo-icon-documents-files-paper-text-archive-copy:before { content: '\e80c'; } /* '' */
+.domo-icon-download:before { content: '\e80d'; } /* '' */
+.domo-icon-download-cloud-file-sync:before { content: '\e80e'; } /* '' */
+.domo-icon-email-mail-post-card-1:before { content: '\e80f'; } /* '' */
+.domo-icon-graph-columns-statistics:before { content: '\e810'; } /* '' */
+.domo-icon-graph-line-chart-statistics:before { content: '\e811'; } /* '' */
+.domo-icon-graph-pie-chart-statistics:before { content: '\e812'; } /* '' */
+.domo-icon-iphone-mobile:before { content: '\e814'; } /* '' */
+.domo-icon-minus-delete-remove:before { content: '\e815'; } /* '' */
+.domo-icon-ok-successful-check:before { content: '\e818'; } /* '' */
+.domo-icon-play-movie-video-cinema-flm:before { content: '\e81b'; } /* '' */
+.domo-icon-plus-add-new:before { content: '\e81c'; } /* '' */
+.domo-icon-settings-gear-preferences:before { content: '\e820'; } /* '' */
+.domo-icon-user-profile-avatar-man-male-1:before { content: '\e823'; } /* '' */
+.domo-icon-user-profile-avatar-man-male:before { content: '\e824'; } /* '' */
+.domo-icon-write-pencil-new-edit:before { content: '\e828'; } /* '' */
+.domo-icon-grid:before { content: '\e82d'; } /* '' */
+.domo-icon-search-thin:before { content: '\e82f'; } /* '' */
+.domo-icon-search:before { content: '\e830'; } /* '' */
+.domo-icon-chat-message-discussion-bubble-conversation-1:before { content: '\e831'; } /* '' */
+.domo-icon-checkbox-ok-successful:before { content: '\e833'; } /* '' */
+.domo-icon-delete-remove-exit-close-checkbox:before { content: '\e835'; } /* '' */
+.domo-icon-question:before { content: '\e83b'; } /* '' */
+.domo-icon-error-close:before { content: '\e83d'; } /* '' */
+.domo-icon-back-arrow:before { content: '\e83e'; } /* '' */
+.domo-icon-checkmark-success:before { content: '\e83f'; } /* '' */
